@@ -4,8 +4,9 @@ import sys
 import json
 import time
 import os
+import properties
 
-apikey = "584eb607b17a4634e1aa535188c69daa"
+apikey = properties.apikey 
 
 class ThreatReport:
     def __init__(self):
@@ -15,7 +16,6 @@ class ThreatReport:
 
     def jsonToObj(self,jsonresponse):
         self.filename = jsonresponse["file_info"]["display_name"]
-        print('Filename = ',self.filename)
         for result in jsonresponse["scan_results"]["scan_details"]:
             d = {}
             d["engine"] = result
@@ -53,56 +53,60 @@ class OPSWAT_Challenge:
 
     def upload_file(self,fp):
         data = fp.read()
-        url = "https://api.metadefender.com/v4/file"
-        headers = {'apikey':apikey,"Content-Type":"application/octet-stream","filename":self.filepointer,"callbackurl":"https://webhook.site/b003869b-f444-4787-88fa-5a99087c45d8"}
-        response = requests.post(url,data=data,headers=headers)
-        print("Post response: ",response.status_code)
-
-        jsonresponce = response.json()
-        print("upload_File" ,jsonresponce)
-        if response.status_code == 200:
-            self.data_id = jsonresponce["data_id"]
-            self.webhook()
-
-            # self.lookupByDataID()
-
-        else:
-
-            return -1
+        url = properties.commonurl
+        headers = {'apikey':apikey,"Content-Type":"application/octet-stream","filename":self.filepointer,"callbackurl":properties.callbackurl}
+        try:
+            response = requests.post(url,data=data,headers=headers)
+            jsonresponce = response.json()
+            if response.status_code == 200:
+                self.data_id = jsonresponce["data_id"]
+                print("File not in cache, uploading now...")
+                self.webhook()
+        except requests.HTTPError as exception:
+            print(exception)
+        
 
     def lookupByDataID(self):
-        url = "https://api.metadefender.com/v4/file/"+self.data_id
-    
+        url = properties.commonurl + self.data_id
         headers = {'apikey':apikey,'x-file-metadata':"1"}
-        print("url for data lookup:", url)
         response = requests.get(url,headers = headers)
-        # print("res:", response.text)
-        jsonresponce = response.json()
-        print("josn res in lookup ",jsonresponce)
-        obj = ThreatReport()
-        obj.jsonToObj(jsonresponce)
-        print("indata lookup",obj.scanresults)
-        print(obj)
+        try:
+            jsonresponce = response.json()
+            obj = ThreatReport()
+            obj.jsonToObj(jsonresponce)
+            print(obj)
+        except requests.HTTPError as exception:
+            print(exception)
         
     def genhash(self,file):
         BLOCKSIZE = 65536
         hasher = hashlib.md5()
-        with open(file, 'rb') as afile:
-            buf = afile.read(BLOCKSIZE)
-            while len(buf) > 0:
-                hasher.update(buf)
+        try:
+            with open(file, 'rb') as afile:
                 buf = afile.read(BLOCKSIZE)
-        self.hashvalue = hasher.hexdigest()
+                while len(buf) > 0:
+                    hasher.update(buf)
+                    buf = afile.read(BLOCKSIZE)
+            self.hashvalue = hasher.hexdigest()
+            self.hashlookup()
+        except Exception:
+            print('File not found, please provide a valid path')
+
+    def genhashsha(self,file):
+        filename = input("Enter the input file name: ")
+        with open(file,"rb") as f:
+            bytes = f.read() # read entire file as bytes
+            readable_hash = hashlib.sha256(bytes).hexdigest();
+            print(readable_hash)
+
 
     def hashlookup(self):
         url = "https://api.metadefender.com/v4/hash/" + self.hashvalue
         headers = {'apikey':apikey}
         response = requests.get(url,headers= headers)
-        # print(response.text)
         jsonresponse = response.json()
-        # print(json.dumps(jsonresponse, indent=1))
-        self.filepointer = os.path.abspath(sys.argv[0])
-        fp = open(self.filepointer,"r")
+        self.filepointer = os.path.abspath(sys.argv[1])
+        fp = open(self.filepointer,"rb")
         if response.status_code == 404:
             self.upload_file(fp)
         elif response.status_code == 200:
@@ -112,21 +116,16 @@ class OPSWAT_Challenge:
             print(obj)
 
     def webhook(self):
-        url = "https://api.metadefender.com/v4/file/webhooks/" + self.data_id
+        url = properties.callbackmetadefender + self.data_id
         headers = {"apikey":apikey}
         response = requests.get(url,headers= headers)
-        print(response.text)
         while response.status_code != 200:
             response = requests.get(url,headers = headers)
-            print(response.text)
             time.sleep(2)
         if response.status_code == 200:
             self.lookupByDataID()
-
+            
 if __name__ == "__main__":
     filename = sys.argv[1]
     scanfile = OPSWAT_Challenge()
     scanfile.genhash(filename)
-    scanfile.hashlookup()
-
-
