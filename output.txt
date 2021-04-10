@@ -1,13 +1,13 @@
-filename: /mnt/c/Users/londh/Documents/GitHub/OPSWAT-coding-challenge/file scanner.py
+filename: /mnt/c/Users/londh/Documents/GitHub/OPSWAT-coding-challenge/CandidateAssessmentAssignment.pdf
 overall_status: Clean
 engine: AegisLab
 threat_found: Clean
 scan_result: 0
-def_time: 2021-04-09T07:30:39.000Z
+def_time: 2021-04-09T05:00:42.000Z
 engine: Ahnlab
 threat_found: Clean
 scan_result: 0
-def_time: 2021-04-10T00:00:00.000Z
+def_time: 2021-04-09T00:00:00.000Z
 engine: Antiy
 threat_found: Clean
 scan_result: 0
@@ -15,11 +15,11 @@ def_time: 2021-04-01T15:48:00.000Z
 engine: Avira
 threat_found: Clean
 scan_result: 0
-def_time: 2021-04-09T21:38:00.000Z
+def_time: 2021-04-09T05:12:00.000Z
 engine: BitDefender
 threat_found: Clean
 scan_result: 0
-def_time: 2021-04-09T20:24:00.000Z
+def_time: 2021-04-09T01:12:00.000Z
 engine: ByteHero
 threat_found: Clean
 scan_result: 0
@@ -27,19 +27,19 @@ def_time: 2021-04-06T00:00:00.000Z
 engine: ClamAV
 threat_found: Clean
 scan_result: 0
-def_time: 2021-04-09T11:10:03.000Z
+def_time: 2021-04-08T11:08:38.000Z
 engine: Comodo
 threat_found: Clean
 scan_result: 0
-def_time: 2021-04-09T18:40:40.000Z
+def_time: 2021-04-09T04:40:39.000Z
 engine: CrowdStrike Falcon ML
 threat_found: Clean
-scan_result: 23
-def_time: 2021-04-10T00:00:00.000Z
+scan_result: 0
+def_time: 2021-04-09T00:00:00.000Z
 engine: Cyren
 threat_found: Clean
 scan_result: 0
-def_time: 2021-04-09T23:35:00.000Z
+def_time: 2021-04-09T05:05:00.000Z
 engine: ESET
 threat_found: Clean
 scan_result: 0
@@ -47,7 +47,7 @@ def_time: 2021-04-09T00:00:00.000Z
 engine: Emsisoft
 threat_found: Clean
 scan_result: 0
-def_time: 2021-04-09T20:50:00.000Z
+def_time: 2021-04-08T00:38:00.000Z
 engine: F-prot
 threat_found: Clean
 scan_result: 0
@@ -63,15 +63,15 @@ def_time: 2021-04-07T00:00:00.000Z
 engine: Hauri
 threat_found: Clean
 scan_result: 0
-def_time: 2021-04-10T00:00:00.000Z
+def_time: 2021-04-09T00:00:00.000Z
 engine: Huorong
 threat_found: Clean
 scan_result: 0
-def_time: 2021-04-09T09:40:00.000Z
+def_time: 2021-04-08T09:48:00.000Z
 engine: Ikarus
 threat_found: Clean
 scan_result: 0
-def_time: 2021-04-09T18:16:30.000Z
+def_time: 2021-04-08T18:17:19.000Z
 engine: Jiangmin
 threat_found: Clean
 scan_result: 0
@@ -79,39 +79,39 @@ def_time: 2021-04-05T19:40:00.000Z
 engine: K7
 threat_found: Clean
 scan_result: 0
-def_time: 2021-04-09T09:02:00.000Z
+def_time: 2021-04-09T00:20:00.000Z
 engine: Kaspersky
 threat_found: Clean
 scan_result: 0
-def_time: 2021-04-09T20:57:00.000Z
+def_time: 2021-04-09T03:54:00.000Z
 engine: McAfee
 threat_found: Clean
 scan_result: 0
-def_time: 2021-04-09T00:00:00.000Z
+def_time: 2021-04-08T00:00:00.000Z
 engine: NANOAV
 threat_found: Clean
 scan_result: 0
-def_time: 2021-04-09T19:26:00.000Z
+def_time: 2021-04-08T23:23:00.000Z
 engine: Preventon
 threat_found: Clean
 scan_result: 0
-def_time: 2021-04-09T18:01:00.000Z
+def_time: 2021-04-08T17:41:00.000Z
 engine: Quick Heal
 threat_found: Clean
 scan_result: 0
-def_time: 2021-04-09T19:06:00.000Z
+def_time: 2021-04-08T10:42:00.000Z
 engine: RocketCyber
 threat_found: Clean
 scan_result: 23
-def_time: 2021-04-10T00:00:00.000Z
+def_time: 2021-04-09T00:00:00.000Z
 engine: Sophos
 threat_found: Clean
 scan_result: 0
-def_time: 2021-04-09T18:01:09.000Z
+def_time: 2021-04-08T17:41:31.000Z
 engine: SUPERAntiSpyware
 threat_found: Clean
 scan_result: 0
-def_time: 2021-04-08T20:06:00.000Z
+def_time: 2021-04-01T22:57:00.000Z
 engine: TACHYON
 threat_found: Clean
 scan_result: 0
@@ -127,15 +127,15 @@ def_time: 2021-04-07T20:38:00.000Z
 engine: VirusBlokAda
 threat_found: Clean
 scan_result: 0
-def_time: 2021-04-09T08:59:00.000Z
+def_time: 2021-04-08T08:23:00.000Z
 engine: Webroot SMD
 threat_found: Clean
-scan_result: 23
-def_time: 2021-04-09T21:00:14.000Z
+scan_result: 0
+def_time: 2021-04-08T21:00:12.000Z
 engine: Windows Defender
 threat_found: Clean
 scan_result: 0
-def_time: 2021-04-09T20:10:54.000Z
+def_time: 2021-04-08T19:10:03.000Z
 engine: Xvirus Personal Guard
 threat_found: Clean
 scan_result: 0
@@ -143,9 +143,9 @@ def_time: 2021-04-07T10:17:25.000Z
 engine: Zillya!
 threat_found: Clean
 scan_result: 0
-def_time: 2021-04-09T07:31:00.000Z
+def_time: 2021-04-08T08:01:00.000Z
 engine: Vir.IT eXplorer
 threat_found: Clean
 scan_result: 0
-def_time: 2021-04-09T12:35:00.000Z
+def_time: 2021-04-08T12:40:00.000Z
 END

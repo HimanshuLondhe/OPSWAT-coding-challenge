@@ -97,7 +97,6 @@ class OPSWAT_Challenge:
                     hasher.update(buf)
                     buf = afile.read(BLOCKSIZE)
             self.hashvalue = hasher.hexdigest()
-            self.hashlookup()
         except Exception as e:
             print('File not found, please provide a valid path',e)
 
@@ -128,7 +127,7 @@ class OPSWAT_Challenge:
         response = requests.get(url,headers= headers)
         while response.status_code != 200:
             response = requests.get(url,headers = headers)
-            time.sleep(2)
+            time.sleep(0.5)
         if response.status_code == 200:
             self.lookupByDataID()
             
@@ -143,3 +142,4 @@ if __name__ == "__main__":
     filename = sys.argv[1]
     scanfile = OPSWAT_Challenge()
     scanfile.genhash(filename)
+    scanfile.hashlookup()
