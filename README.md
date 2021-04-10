@@ -8,7 +8,7 @@ Download the code from Github
 Change the working directory
 ```cd OPSWAT-coding-challenge/```
 ## To run the code
-1. Edit the properties.py file and replace the apikey variable with your own apikey.
+1. Edit the properties.py file and replace the apikey variable with your own apikey as a string.
 2. Run the python file as ```python3 file_scanner.py <path to file>```
 3. Retrieve output on the console or in the ```output.txt``` file
 
