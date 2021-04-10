@@ -8,12 +8,14 @@ import properties
 
 apikey = properties.apikey 
 
+### Threat Report is generated as specified. returns the output as an object.
 class ThreatReport:
     def __init__(self):
         self.filename = ""
         self.overall_status = ""
         self.scanresults = []
 
+    ### Function which takes the json returned from data_id lookup or the hash lookup
     def jsonToObj(self,jsonresponse):
         self.filename = jsonresponse["file_info"]["display_name"]
         for result in jsonresponse["scan_results"]["scan_details"]:
@@ -31,7 +33,9 @@ class ThreatReport:
             self.overall_status = "Clean"
         else:
             self.overall_status = "Infected"
-    
+
+
+    ### over-writing the string return to the specified format.
     def __str__(self):
         string = "filename: " + self.filename + "\n" + "overall_status: " + self.overall_status + "\n" 
         
@@ -51,6 +55,7 @@ class OPSWAT_Challenge:
         self.data_id = ""
         self.hashvalue = ""
 
+    ### Function to upload the file using the upload file API
     def upload_file(self,fp):
         data = fp.read()
         url = properties.commonurl
@@ -63,9 +68,9 @@ class OPSWAT_Challenge:
                 print("File not in cache, uploading now...")
                 self.webhook()
         except requests.HTTPError as exception:
-            print(exception)
+            print("File not uploaded: ",exception)
         
-
+    ### Looks up the scan results by the data_id
     def lookupByDataID(self):
         url = properties.commonurl + self.data_id
         headers = {'apikey':apikey,'x-file-metadata':"1"}
@@ -75,9 +80,13 @@ class OPSWAT_Challenge:
             obj = ThreatReport()
             obj.jsonToObj(jsonresponce)
             print(obj)
+            s = str(obj)
+            text_file = open("output.txt", "w")
+            text_file.write(s)
         except requests.HTTPError as exception:
-            print(exception)
-        
+            print("Data ID not correct: " ,exception)
+
+    ### Generates the md5 hash of the given file       
     def genhash(self,file):
         BLOCKSIZE = 65536
         hasher = hashlib.md5()
@@ -89,17 +98,10 @@ class OPSWAT_Challenge:
                     buf = afile.read(BLOCKSIZE)
             self.hashvalue = hasher.hexdigest()
             self.hashlookup()
-        except Exception:
-            print('File not found, please provide a valid path')
+        except Exception as e:
+            print('File not found, please provide a valid path',e)
 
-    def genhashsha(self,file):
-        filename = input("Enter the input file name: ")
-        with open(file,"rb") as f:
-            bytes = f.read() # read entire file as bytes
-            readable_hash = hashlib.sha256(bytes).hexdigest();
-            print(readable_hash)
-
-
+    ### If has is found, the following function is called to retrieve info from the ThreatReport class.
     def hashlookup(self):
         url = "https://api.metadefender.com/v4/hash/" + self.hashvalue
         headers = {'apikey':apikey}
@@ -114,7 +116,12 @@ class OPSWAT_Challenge:
             obj = ThreatReport()
             obj.jsonToObj(jsonresponse)
             print(obj)
+            s = str(obj)
+            text_file = open("output.txt", "w")
+            text_file.write(s)
 
+
+    ### Function to get the upload status from the callbackurl using Webhook.
     def webhook(self):
         url = properties.callbackmetadefender + self.data_id
         headers = {"apikey":apikey}
@@ -126,6 +133,13 @@ class OPSWAT_Challenge:
             self.lookupByDataID()
             
 if __name__ == "__main__":
+    try:
+        if len(sys.argv) != 2:
+            raise ValueError("Enter right amount of arguments: Usage: python3 file_scanner.py <file to be uploaded>")
+    except ValueError as e:
+        print(e)
+        sys.exit()
+    ## Create an object of the main challenge class and calculate hash.
     filename = sys.argv[1]
     scanfile = OPSWAT_Challenge()
     scanfile.genhash(filename)
