@@ -98,7 +98,8 @@ class OPSWAT_Challenge:
                     buf = afile.read(BLOCKSIZE)
             self.hashvalue = hasher.hexdigest()
         except Exception as e:
-            print('File not found, please provide a valid path',e)
+            print('Could not generate Hash. Try again',e)
+            sys.exit()
 
     ### If has is found, the following function is called to retrieve info from the ThreatReport class.
     def hashlookup(self):
@@ -118,7 +119,9 @@ class OPSWAT_Challenge:
             s = str(obj)
             text_file = open("output.txt", "w")
             text_file.write(s)
-
+        else:
+            print("Unexpected error. Try again: ",response.status_code)
+            sys.exit()
 
     ### Function to get the upload status from the callbackurl using Webhook.
     def webhook(self):
