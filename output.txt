@@ -1,4 +1,4 @@
-filename: output.txt
+filename: README.md
 overall_status: Clean
 engine: AegisLab
 threat_found: Clean

@@ -139,6 +139,9 @@ if __name__ == "__main__":
         print(e)
         sys.exit()
     ## Create an object of the main challenge class and calculate hash.
+    if apikey == "":
+        print("Api key not given, pls edit properties.py")
+        sys.exit()
     filename = sys.argv[1]
     scanfile = OPSWAT_Challenge()
     scanfile.genhash(filename)
